@@ -4,13 +4,13 @@ from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 
 
-def list_entries():
+def list_entries(substring=''):
     """
     Returns a list of all names of encyclopedia entries.
     """
     _, filenames = default_storage.listdir("entries")
     return list(sorted(re.sub(r"\.md$", "", filename)
-                for filename in filenames if filename.endswith(".md")))
+                for filename in filenames if filename.endswith(".md") and filename.find(substring) != -1))
 
 
 def save_entry(title, content):
@@ -31,6 +31,7 @@ def get_entry(title):
     entry exists, the function returns None.
     """
     try:
+        title = title.lower()
         f = default_storage.open(f"entries/{title}.md")
         return f.read().decode("utf-8")
     except FileNotFoundError:

@@ -5,11 +5,17 @@
 {% endblock %}
 
 {% block body %}
-    <h1>All Pages</h1>
+    <h2>All Pages
+        {% if search_entry_name %}
+            containing "{{ search_entry_name }}"
+        {% endif %}
+    </h2>
 
     <ul>
         {% for entry in entries %}
-            <li><a href="{% url 'view_entry' entry %}">{{ entry }}</a></li>
+            <li><a href="{% url 'view_entry' entry %}">{{ entry|title }}</a></li>
+        {% empty %}
+            <h3>No entries found</h3>
         {% endfor %}
     </ul>
 
