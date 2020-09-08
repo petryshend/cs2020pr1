@@ -10,7 +10,7 @@ def list_entries(substring=''):
     """
     _, filenames = default_storage.listdir("entries")
     return list(sorted(re.sub(r"\.md$", "", filename)
-                for filename in filenames if filename.endswith(".md") and filename.find(substring) != -1))
+                for filename in filenames if filename.endswith(".md") and filename[:-3].find(substring) != -1))
 
 
 def save_entry(title, content):
@@ -19,6 +19,7 @@ def save_entry(title, content):
     content. If an existing entry with the same title already exists,
     it is replaced.
     """
+    title = title.lower()
     filename = f"entries/{title}.md"
     if default_storage.exists(filename):
         default_storage.delete(filename)

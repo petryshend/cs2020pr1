@@ -1,0 +1,44 @@
+{% extends 'encyclopedia/layout.html' %}
+
+{% block title %}
+    Create new entry
+{% endblock %}
+
+{% block body %}
+    <div class="col-md-6">
+        <h3>Create new wiki entry</h3>
+        <form action="{% url 'create_entry' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="entry-title">Title</label>
+                <input class="form-control {% if errors.title|length %}is-invalid{% endif %}"
+                       id="entry-title"
+                       name="entry-title"
+                       type="text"
+                       placeholder="Entry title"
+                       required
+                >
+                {% if errors.title|length %}
+                    <div class="invalid-feedback">
+                        {{ errors.title|join:', ' }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="entry-content">Content</label>
+                <textarea class="form-control {% if errors.content|length %}is-invalid{% endif %}"
+                          name="entry-content"
+                          id="entry-content"
+                          rows="10"
+                          required
+                ></textarea>
+                {% if errors.content|length %}
+                    <div class="invalid-feedback">
+                        {{ errors.content|join:', ' }}
+                    </div>
+                {% endif %}
+            </div>
+            <input class="btn btn-primary" type="submit" value="Submit">
+        </form>
+    </div>
+{% endblock %}
