@@ -43,4 +43,10 @@
             <input class="btn btn-primary" type="submit" value="Submit">
         </form>
     </div>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script>
+        new SimpleMDE({ element: document.getElementById("entry-content") });
+    </script>
 {% endblock %}
