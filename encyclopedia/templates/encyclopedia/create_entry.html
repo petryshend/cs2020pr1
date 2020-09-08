@@ -18,6 +18,7 @@
                        placeholder="Entry title"
                        required
                        value="{% if edit_title %}{{ edit_title }}{% endif %}"
+                       {% if edit_title %}readonly{% endif %}
                 >
                 {% if errors.title|length %}
                     <div class="invalid-feedback">

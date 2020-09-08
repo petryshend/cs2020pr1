@@ -2,6 +2,7 @@ from django.http import Http404, HttpRequest
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from markdown2 import markdown
+import random
 
 from . import util
 
@@ -51,6 +52,10 @@ def create_entry(request: HttpRequest):
         'edit_title': edit,
         'edit_content': util.get_entry(edit) if edit else None
     })
+
+
+def random_entry(request: HttpRequest):
+    return redirect(reverse('view_entry', args=[random.choice(util.list_entries())]))
 
 
 def validate_new_entry(title, content):
