@@ -35,7 +35,6 @@ def search_entry(request: HttpRequest):
 
 
 def create_entry(request: HttpRequest):
-    #TODO: fix entries title case
     if request.method == 'POST':
         title = request.POST['entry-title']
         content = request.POST['entry-content']
@@ -47,7 +46,11 @@ def create_entry(request: HttpRequest):
         util.save_entry(title, content)
         return redirect(reverse('view_entry', args=[title]))
 
-    return render(request, 'encyclopedia/create_entry.html')
+    edit = request.GET.get('edit')
+    return render(request, 'encyclopedia/create_entry.html', {
+        'edit_title': edit,
+        'edit_content': util.get_entry(edit) if edit else None
+    })
 
 
 def validate_new_entry(title, content):
@@ -57,8 +60,6 @@ def validate_new_entry(title, content):
     }
     if not title:
         errors['title'].append('Title cannot be empty')
-    if util.get_entry(title):
-        errors['title'].append(f'Entry "{title}" already exists')
     if not content:
         errors['content'].append('Content cannot be empty')
 

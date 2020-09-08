@@ -17,6 +17,7 @@
                        type="text"
                        placeholder="Entry title"
                        required
+                       value="{% if edit_title %}{{ edit_title }}{% endif %}"
                 >
                 {% if errors.title|length %}
                     <div class="invalid-feedback">
@@ -31,7 +32,7 @@
                           id="entry-content"
                           rows="10"
                           required
-                ></textarea>
+                >{% if edit_content %}{{ edit_content }}{% endif %}</textarea>
                 {% if errors.content|length %}
                     <div class="invalid-feedback">
                         {{ errors.content|join:', ' }}
